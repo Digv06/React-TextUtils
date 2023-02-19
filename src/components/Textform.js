@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 
 export default function Textform(props) {
+
+  
+  const[text, setText] = useState("");
+  // text = "This is the new text"; //This is the wrong way to change the state 
+  // setText("This is right way"); //This is right way of state 
+
     const handleUpclick = ()=>{
       // console.log("Uppercase was clicked");
       let newText = text.toUpperCase();
@@ -23,9 +29,18 @@ export default function Textform(props) {
       // console.log("On Change");
       setText(event.target.value);
     }
-    const[text, setText] = useState("Enter text here");
-    // text = "This is the new text"; //This is the wrong way to change the state 
-    // setText("This is right way"); //This is right way of state 
+
+    const handleCopy = ()=>{
+      let newText = document.getElementById("textBox");
+      newText.select();
+      navigator.clipboard.writeText(newText.value);
+    }
+
+    const handleExtraSpace = () =>{
+      let newText = text.split(/[ ]+/);
+      setText(newText.join(" "));
+    }
+
   return (
     <>
       <div className = "container">
@@ -37,8 +52,8 @@ export default function Textform(props) {
           <button className="btn btn-primary my-2 mx-2" onClick = {handleUpclick}>Convert to Uppercase</button>
           <button className="btn btn-danger my-2 mx-2" onClick={handleLowClick}>Convert to Lowercase</button>
           <button className="btn btn-secondary my-2 mx-2" onClick = {handleClearClick}>Clear Text</button>
-          <button className="btn btn-success my-2 mx-2">Copy Text</button>
-          <button className="btn btn-warning my-2 mx-2">Remove Extra Text</button>
+          <button className="btn btn-success my-2 mx-2" onClick = {handleCopy}>Copy Text</button>
+          <button className="btn btn-warning my-2 mx-2" onClick = {handleExtraSpace}>Remove Extra Text</button>
       </div>
       <div className="container">
         <h1>Your Text Summary :</h1>
