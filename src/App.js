@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
 import Alert from './components/Alert';
-// import About from './components/About';
+import About from './components/About';
 import Navbar from './components/Navbar';
 import Textform from './components/Textform';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  // Link
+} from "react-router-dom";
+
 
 function App() {
 
@@ -33,16 +41,26 @@ function App() {
       showAlert("Dark Mode has been enabled", 'success', 'success');
     }
   }
+
   return (
     <>  
-      <Navbar title = "Text Transformer" abouttext = "About Us" mode = {mode} toggleMode = {toggleMode}/>
-      <Alert alert = {alert}/>
-      <div className="container my-4">
-        <Textform showAlert = {showAlert} head = "Enter the text: " mode = {mode}/> 
-        {/* <About/> */}
-      </div>
+      <Router>
+        <Navbar title = "Text Transformer" abouttext = "About Us" mode = {mode} toggleMode = {toggleMode}/>
+        
+        <Alert alert = {alert}/>
+        
+        <div className="container my-4">
+            <Routes>
+              <Route exact path="/about" element= {<About/>}/>
+              <Route exact path="/" element = {<Textform showAlert = {showAlert} head = "Enter the text: " mode = {mode}/>}/>
+            </Routes>
+        </div>
+      
+      </Router>
     </>
   );
+
+
 }
 
 export default App;
