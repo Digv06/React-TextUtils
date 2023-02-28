@@ -37,6 +37,7 @@ export default function Textform(props) {
       let newText = document.getElementById("textBox");
       newText.select();
       navigator.clipboard.writeText(newText.value);
+      document.getSelection().removeAllRanges();
       props.showAlert("Text is copied. Check your clipboard", 'success', 'success')
     }
 
@@ -54,16 +55,16 @@ export default function Textform(props) {
               {/* <label htmlFor="textBox" className="form-label">Chutiya ho aap </label> */}
               <textarea className="form-control" id="textBox" onChange={handleOnChange} value = {text} rows="10" style={{backgroundColor: props.mode==='dark'?'#154d76':'white', color:props.mode==='dark'?'white':'black'}}></textarea>
           </div>
-          <button className="btn btn-primary my-2 mx-2" onClick = {handleUpclick}>Convert to Uppercase</button>
-          <button className="btn btn-danger my-2 mx-2" onClick={handleLowClick}>Convert to Lowercase</button>
-          <button className="btn btn-secondary my-2 mx-2" onClick = {handleClearClick}>Clear Text</button>
-          <button className="btn btn-success my-2 mx-2" onClick = {handleCopy}>Copy Text</button>
-          <button className="btn btn-warning my-2 mx-2" onClick = {handleExtraSpace}>Remove Extra Text</button>
+          <button disabled = {text.length === 0} className="btn btn-primary my-2 mx-2" onClick = {handleUpclick}>Convert to Uppercase</button>
+          <button disabled = {text.length === 0} className="btn btn-danger my-2 mx-2" onClick={handleLowClick}>Convert to Lowercase</button>
+          <button disabled = {text.length === 0} className="btn btn-secondary my-2 mx-2" onClick = {handleClearClick}>Clear Text</button>
+          <button disabled = {text.length === 0} className="btn btn-success my-2 mx-2" onClick = {handleCopy}>Copy Text</button>
+          <button disabled = {text.length === 0} className="btn btn-warning my-2 mx-2" onClick = {handleExtraSpace}>Remove Extra Text</button>
       </div>
       <div className="container" style = {{color: props.mode === 'dark'?'white':'black'}}>
         <h1>Your Text Summary :</h1>
-        <p><b>{text.split(" ").length}</b> words and <b>{text.length}</b> characters</p>
-        <p><b>{0.008 * text.split(" ").length}</b> minutes to read</p>
+        <p><b>{text.split(" ").filter((element)=> {return element.length!==0}).length}</b> words and <b>{text.length}</b> characters</p>
+        <p><b>{0.008 * text.split(" ").filter((element) => {return element.length!==0}).length}</b> minutes to read</p>
       </div>
     </>
   )

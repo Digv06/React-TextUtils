@@ -8,8 +8,7 @@ import Textform from './components/Textform';
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  // Link
+  Route
 } from "react-router-dom";
 
 
@@ -49,9 +48,9 @@ function App() {
         
         <Alert alert = {alert}/>
         
-        <div className="container my-4">
+        <div className="container my-5">
             <Routes>
-              <Route exact path="/about" element= {<About/>}/>
+              <Route exact path="/about" element= {<About mode = {mode}/>} />
               <Route exact path="/" element = {<Textform showAlert = {showAlert} head = "Enter the text: " mode = {mode}/>}/>
             </Routes>
         </div>
